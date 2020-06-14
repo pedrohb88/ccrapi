@@ -57,7 +57,7 @@ app.post('/message', (req, res) => {
         let phone = params.From.split(':')[1];
         console.log(userStates[phone]);
 
-        if(userState[phone] == null){
+        if(userStates[phone] == null){
             
             userStates[phone] = 'waitingName';
             let response = new MessagingResponse();
@@ -68,6 +68,7 @@ app.post('/message', (req, res) => {
 
             userStates[phone] = 'logged';
             let name = params.Body.trim();
+
 
             let response = new MessagingResponse();
             response.message(`É um prazer te conhecer, ${name} :)`);
