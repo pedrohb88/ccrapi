@@ -74,12 +74,7 @@ app.post('/message', (req, res) => {
             response.message(`É um prazer te conhecer, ${name} :)`);
 
             let comandos = comandosString();
-            response.message(`Para começar a usar, digite o *número* de um dos seguintes comandos:
-            
-            ${comandos}
-
-            A qualquer momento você pode digitar *ajuda* para ver a lista de comandos novamente.
-            `);
+            response.message(`Para começar a usar, digite o *número* de um dos seguintes comandos:\n\n${comandos}\n\nA qualquer momento você pode digitar *ajuda* para ver a lista de comandos novamente.`);
             res.send(response.toString());
         } else if(userStates[phone] == 'logged'){
 
@@ -93,15 +88,7 @@ app.post('/message', (req, res) => {
 
             } else if(comando == '2'){
                 let response = new MessagingResponse();
-                response.message(`Números de emergência:
-
-                - Corpo de Bombeiros: 193
-                - Policia Militar: 190
-                - Polícia Rodoviária Federal: 191
-                - Polícia Rodoviária Estadual: 198
-                - Defesa Civíl: 199
-                - SAMU: 192
-                - Central de Atendimento à Mulher: 180`);
+                response.message(`Números de emergência:\n\n- Corpo de Bombeiros: 193\n- Policia Militar: 190\n- Polícia Rodoviária Federal: 191\n- Polícia Rodoviária Estadual: 198\n- Defesa Civíl: 199\n- SAMU: 192\n- Central de Atendimento à Mulher: 180`);
                 res.send(response.toString());
 
             } else if(comando == '3'){
@@ -115,15 +102,11 @@ app.post('/message', (req, res) => {
                 let response = new MessagingResponse();
                 response.message('Coronavirus');
                 res.send(response.toString());
-            } else if(comando == 'ajuda'){
+            } else if(comando.toLowerCase() == 'ajuda'){
 
+                let response = new MessagingResponse();
                 let comandos = comandosString();
-                response.message(`Digite o *número* de um dos seguintes comandos:
-                
-                ${comandos}
-
-                A qualquer momento você pode digitar *ajuda* para ver a lista de comandos novamente.
-                `);
+                response.message(`Digite o *número* de um dos seguintes comandos:\n\n${comandos}\n\nA qualquer momento você pode digitar *ajuda* para ver a lista de comandos novamente.`);
             } 
             else {
 
