@@ -11,8 +11,11 @@ let {authenticate, authenticateServer} = require('./middleware/authenticate');
 let {formatPhone} = require('./middleware/formatPhone');
 let {User} = require('./models/user');
 let {VerificationToken} = require('./models/verificationToken');
+let {Place} = require('./models/place');
+let {Rating} = require('./models/rating');
 
 const express = require('express');
+const cryptoRandomString = require('crypto-random-string');
 
 let app = express();
 const port = process.env.PORT || 3000;
@@ -114,7 +117,7 @@ app.get('/user', authenticate, (req, res) => {
     });
 });
 
-app.post('/user/verifyCode', async (req, res) => {
+app.post('/user/verifyCode', formatPhone, async (req, res) => {
     let body = _.pick(req.body, ['phone', 'verificationCode']);
    
     let verificationToken = new VerificationToken({
@@ -126,6 +129,57 @@ app.post('/user/verifyCode', async (req, res) => {
     if(validCode) res.status(200).send();
     else res.status(401).send();
 })
+
+app.get('/place/:id', authenticate, (req, res) => {
+    let placeId = req.params.id;
+
+    Place.findById(placeId).then((place) => {
+        if(!place) res.status(400).send();
+        else  res.send(place);
+        
+    }).catch((e) => {
+        console.log(e);
+        res.status(400).send(e);
+    });
+})
+
+app.post('/place/:id/rating', authenticate, async (req, res) => {
+    let placeId = req.params.id;
+
+    Place.findById(placeId).then(async (place) => {
+
+        if(!place){
+            let newPlace = new Place({
+                place_id: placeId,
+            });
+
+            await newPlace.save();
+            place = newPlace;
+        } 
+        
+        let hasRatingAlready = await place.hasUserRating(req.user._id);
+
+        if(!hasRatingAlready){
+            let newRating = Rating({
+                userId: req.user._id,
+                place_id: placeId,
+                ...req.body
+            });
+            await newRating.save();
+
+            await place.recalculateRating();
+
+            res.send();
+            return;
+        }
+
+        res.status(400).send();
+
+    }).catch((e) => {
+        console.log(e);
+        res.status(400).send(e);
+    });
+});
 
 
 app.listen(port, () => {
