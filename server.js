@@ -69,10 +69,6 @@ app.post('/message', (req, res) => {
             userStates[phone] = 'logged';
             let name = params.Body.trim();
 
-           
-            let name = params.Body.trim();
-            userStates[phone] = 'logged';
-
             let response = new MessagingResponse();
             response.message(`É um prazer te conhecer, ${name} :)`);
 
