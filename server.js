@@ -107,6 +107,7 @@ app.post('/message', (req, res) => {
                 let response = new MessagingResponse();
                 let comandos = comandosString();
                 response.message(`Digite o *número* de um dos seguintes comandos:\n\n${comandos}\n\nA qualquer momento você pode digitar *ajuda* para ver a lista de comandos novamente.`);
+                res.send(response.toString());
             } 
             else {
 
