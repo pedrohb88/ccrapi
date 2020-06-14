@@ -83,7 +83,7 @@ app.post('/message', (req, res) => {
             if(comando == '1'){
 
                 let response = new MessagingResponse();
-                response.message('Paradas mais próximas');
+                response.message('Em desenvolvimento');
                 res.send(response.toString());
 
             } else if(comando == '2'){
@@ -94,13 +94,14 @@ app.post('/message', (req, res) => {
             } else if(comando == '3'){
 
                 let response = new MessagingResponse();
-                response.message('Direito dos caminhoneiros');
+                response.message('Em desenvolvimento');
                 res.send(response.toString());
 
             }else if(comando == '4'){
 
                 let response = new MessagingResponse();
-                response.message('Coronavirus');
+                response.message('Principais sintomas: Febre, tosse forte e falta de ar.\n\nCaso você esteja sentido esses sintomas:\n\n-Comunique imediatamente a empresa e/ou sua família\n-Não tome remédios por conta própria\n-Busque auxílio médico no hospital ou posto de saúde mais próximos\n-Evite contato próximo com colegas ou outras pessoas\n-Procure ficar isolado, reduzir o contato com outras pessoas, até o atendimento médico\n-Siga as recomendações que o médico passar ao pé da letra');
+                response.message('Recomendações: \n\n- Limpe e desinfete a cabine, os objetos e as superfícies\n- Limpe e desinfete a cabine, os objetos e as superfícies tocados com frequência. Para isso, use água e sabão ou álcool gel\n- Lave as mãos após tocar e mexer na parte externa do veículo\n- Evite dar caronas\n- Mantenha a cabine bem ventilada\n- Limite os abraços e apertos de mão\n- Evite estar em locais com muita gente\n- Procure não ter contato próximo com pessoas doentes\n- Mantenha uma distância mínima de um metro durante as conversas\n- Não compartilhe copos, talheres, toalhas ou utensílios\n- Não utilize bebedouro onde tem que colocar a boca para ingerir água\n- Evite alimentos de origem desconhecida ou desprotegidos')
                 res.send(response.toString());
             } else if(comando.toLowerCase() == 'ajuda'){
 
